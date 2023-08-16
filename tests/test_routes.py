@@ -136,7 +136,7 @@ class TestAccountService(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         self.assertEqual(data["name"], account.name)
-    
+
     def test_get_account_not_found(self):
         """It should not Read an Account that is not found"""
         resp = self.client.get(f"{BASE_URL}/0")
@@ -168,13 +168,11 @@ class TestAccountService(TestCase):
         account = self._create_accounts(1)[0]
         resp = self.client.delete(f"{BASE_URL}/{account.id}")
         self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
-    
-    
+
     def test_method_not_allowed(self):
         """restapi shouldn't allow illegal method calls"""
         resp = self.client.delete(BASE_URL)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
-
 
     def test_security_headers(self):
         """It should return security headers"""
@@ -188,8 +186,7 @@ class TestAccountService(TestCase):
         }
         for key, value in headers.items():
             self.assertEqual(response.headers.get(key), value)
-
-    
+ 
     def test_cors_security(self):
         """This function should only return a CORS header"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
